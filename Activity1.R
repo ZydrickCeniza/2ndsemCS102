@@ -46,6 +46,7 @@ numberofreviews_list<-numberofreviews_list[1:desl]
 Category1<-cbind(Des_list,price_df,Rate,numberofreviews_list)
 colnames(Category1)<-c("Description","Price","Ratings","Number of Reviews")
 Category1
+View(Category1)
 #-----------------------------------------------------------------------------
 
 url <- 'https://www.amazon.com/s?i=specialty-aps&bbn=4954955011&rh=n%3A4954955011%2Cn%3A%212617942011%2Cn%3A2237329011&ref=nav_em__nav_desktop_sa_intl_needlework_0_2_8_8'
@@ -85,7 +86,9 @@ numberofreviews_list <- scrape(session) %>%
   html_text
 numberofreviews_list<-numberofreviews_list[1:desl]
 Category2<-cbind(Des_list,price_df,Rate,numberofreviews_list)
+colnames(Category2)<-c("Description","Price","Ratings","Number of Reviews")
 Category2
+View(Category2)
 #--------------------------------------------------------------------
 
 url <- 'https://www.amazon.com/s?i=specialty-aps&bbn=16225009011&rh=n%3A%2116225009011%2Cn%3A502394&ref=nav_em__nav_desktop_sa_intl_camera_and_photo_0_2_5_3'
@@ -125,5 +128,7 @@ numberofreviews_list <- scrape(session) %>%
   html_text
 numberofreviews_list<-numberofreviews_list[1:desl]
 Category3<-cbind(Des_list,price_df,Rate,numberofreviews_list)
+colnames(Category3)<-c("Description","Price","Ratings","Number of Reviews")
 Category3
+View(Category3)
 
