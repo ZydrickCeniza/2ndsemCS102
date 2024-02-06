@@ -1,0 +1,85 @@
+---
+title: "Activity2"
+output: html_document
+date: "2024-02-06"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## CS102 February 6, 2024
+## Zydrick Ceniza BSIT 2B
+
+```{r}
+library(rvest)
+library(httr)
+library(dplyr)
+library(polite)
+
+polite::use_manners(save_as = 'polite_scrape.R')
+
+list1 <- c(
+  "https://www.imdb.com/title/tt4154796/reviews/?ref_=tt_ql_2",
+  "g4xojermtizcs3ya62thzmjqrdumwbr43epdx4pqcwb32vtjnmt22d26mjodcjhysxmvc7unjffq23tw7siby",
+  "g4u6dermtizcsyil76vx5mzurlr42cb23upd3zh6iwdp6vlgnuq24dsjdvtukdnk2e4oscn65tyuhcvayzkq",
+  "g4v6jermtizcsyia76wh3ojsrhrmyab63yptr7hqcwb32v3bnyq24dk3mjohkrnqtllpjd5ye7ptbq46pjnem",
+  "g4w6ddbsqyxdo6ie76txrmrurtsm6bz43mmt37pndpj3qfleneq2kc2toarta25qzirmndrzjg7kkaquu746gwa",
+  "g4w6hcjsqyxdo6ie7kvhfmjrqpr4ycb22iodd7xedpj3qflhnes2idsyoertbxhtwfbvpchvgun2jwt3hroew7i",
+  "g4w6lbjsqyxdo6ih7cxx5nrxqpu46bb22iotzzh6iwdp2vdemeq22ccjdulst4ytzbnbfid3w4ei3vjpcvza",
+  "g4w6ncbsqyxdo6ih7kvhhmbyrdrm4azt3uodt4hidpj3qflhnaq2wc2soertbhoojssjyb25f5m4oniisso4aci",
+  "g4w6rbjsqyxdo6ih7suhzmbqrpsm4cby2imdb7hedpj3qflfmas2udk4oertblmctv37ssegzzsoty2qwh2eh5q",
+  "g4xohcbsqyxdo6ih7gtx5nrwrxrmqajs2ipdv6hedpj3qflfmaskicksomrtacqpk5lou4x4ztfawltnz2fuu6q",
+  "g4xolbjsqyxdo6ih7wxhtnrrrxtmoaby2indv6pjdpj3qflgnaq2kbksoqrtbi7dve77mfum34xg26pgzw74kcy",
+  "g4xoncbsqyxdo6ih72vhtobsrpsm4bj23akdx6xodpj3qflfn4wkid27o4rtbfi3na3fqrhnugjf72yd6jeklzq",
+  "g4xorbjsqyxdo6ie7stxhmjqqpq4qcb33updd7xodpj3qflenat2kbcsoirta7zqfc4ncrh6shatvye2bupgyyq"
+)
+
+i<-2
+for (i in 1:13) {
+  url <- if (i == 1) list1[1] else paste0("https://www.imdb.com/title/tt4154796/reviews/_ajax?ref_=undefined&paginationKey=", list1[i])
+  
+  session <- bow(url, user_agent = "Educational")
+  
+  username <- scrape(session) %>%
+    html_nodes('span.display-name-link') %>% 
+    html_text()
+  
+  date <- scrape(session) %>%
+    html_nodes('span.review-date') %>% 
+    html_text()
+  
+  rate <- scrape(session) %>%
+    html_nodes('span.rating-other-user-rating') %>% 
+    html_text()
+  
+  reviewtitle <- scrape(session) %>%
+    html_nodes('a.title') %>% 
+    html_text()
+  
+   review<- scrape(session) %>%
+    html_nodes('div.text.show-more__control') %>% 
+    html_text()
+if(i==1){
+  usernamelist <- username
+  datelist <- date
+  ratelist<- rate
+  reviewtitlelist<-reviewtitle
+  reviewlist<- review
+}
+else{
+  usernamelist <- c(usernamelist, username)
+  datelist <- c(datelist, date)
+  ratelist <- c(ratelist, rate)
+  reviewtitlelist<-c(reviewtitlelist,reviewtitle)
+  reviewlist<-c(reviewlist,review)
+}
+}
+Activity2<-cbind(usernamelist,datelist,ratelist,reviewtitlelist,reviewlist)
+Activity2<-data.frame(Activity2)
+Activity2<-Activity2[-301:-324,]
+
+View(Activity2)
+
+```
