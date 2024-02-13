@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## CS102 February 6, 2024
 ## Zydrick Ceniza BSIT 2B
 
+
 ```{r}
 library(rvest)
 library(httr)
@@ -36,7 +37,7 @@ list1 <- c(
   "g4xorbjsqyxdo6ie7stxhmjqqpq4qcb33updd7xodpj3qflenat2kbcsoirta7zqfc4ncrh6shatvye2bupgyyq"
 )
 
-i<-2
+
 for (i in 1:13) {
   url <- if (i == 1) list1[1] else paste0("https://www.imdb.com/title/tt4154796/reviews/_ajax?ref_=undefined&paginationKey=", list1[i])
   
@@ -76,10 +77,10 @@ else{
   reviewlist<-c(reviewlist,review)
 }
 }
+
 Activity2<-cbind(usernamelist,datelist,ratelist,reviewtitlelist,reviewlist)
 Activity2<-data.frame(Activity2)
-Activity2<-Activity2[-301:-324,]
-
+Activity2<-Activity2[1:300,]
 View(Activity2)
 
 ```
