@@ -722,5 +722,6 @@ AllMovieReviews<-rbind(Activity2,Activity3_1movie,Activity3_2movie,Activity3_3mo
 
 #Final Output of all Activity
 FinalOutput<-cbind(movietitle,AllMovieReviews)
+write.csv(FinalOutput,file = "FinalOutputAct3.csv")
 
 ```
