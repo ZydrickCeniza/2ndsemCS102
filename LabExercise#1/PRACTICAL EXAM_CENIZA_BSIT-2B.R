@@ -18,8 +18,10 @@ for (col in numeric_names) {
 
 
 #3. Error messages in R sometimes report the underlying type of an object rather than the user-level class. Derive from the following code and error message what the underlying type.
-#Example if you input a vector that contains "13" it will have an error due to the invalid data type  
-
+#Example if you input a vector that contains "13","15","20" and you sum it,it will have an error it will have an error due to the invalid data type  
+#example<-c("13","15","20")
+#sum(example)
+#error invalid data type
 #----------------------------------------------------------
 #B
 
