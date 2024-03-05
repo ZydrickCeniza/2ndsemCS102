@@ -26,7 +26,7 @@ for (col in numeric_names) {
 #B
 
 #1. Read the complete file using readLines.
-example_file <- readLines("/cloud/project/LabExercise#1/exampleFile.txt")
+example_file <- readLines("/cloud/project/PRACTICAL_EXAM/exampleFile.txt")
 example_file
 #2. Separate the vector of lines into a vector containing comments and a vector containing the data. Hint: use grepl.
 comments <- example_file[grepl("//", example_file)]
