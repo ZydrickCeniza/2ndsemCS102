@@ -73,7 +73,7 @@ moviereview_cut<-gsub(":","",moviereview_cut)
 movie_review <- moviereview_cut
 movie_review
 
-
+moviequery <- character(nrow(movies_get10))
 # linking it all using paste0 in order to make the code shorter kag para di budlay mag pasulod sa database sorry cant explain it well.
 for (i in 1:10) {
   moviequery[i] <- paste0("INSERT INTO movie (movie_title, reviewer, date_of_review, rating, title_of_the_reviews, reviews) VALUES ('",
@@ -85,7 +85,6 @@ for (i in 1:10) {
                           movie_review[i], "')")
 }
 
-
 #loop of these:
 # insert values into MySQL
 # Execute the query
@@ -95,6 +94,7 @@ for (i in 1:10){
 }
 
 #checking if the value was inserted into a table
+my_data <- dbGetQuery(connection, "SELECT * FROM cs102_10movies.movie")
 glimpse(my_data)
 #disconnect from dbase
 dbDisconnect(connection)
