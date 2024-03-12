@@ -102,56 +102,8 @@ movies_data[c(1:2),]
 SqlQuery <- "SELECT movie_title,reviewer,rating,date_of_review,title_of_the_reviews,reviews FROM arxiv_150insert.arxivpapers"
 as_tibble(dbGetQuery(connection,SqlQuery))
 
-#containg the date list 
-arxivtitle <- papers[,1]
-arxivtitle
+dbWriteTable(connection, name = "arxivpapers", value = papers, row.names = FALSE, append = TRUE)
 
-#containing the movie title
-arxivauthor <- papers[,2]
-arxivauthor_cut<-gsub("'","",arxivauthor)
-arxivauthor<-arxivauthor_cut
-arxivauthor
-
-#containing the username of the reviewer
-arxivsubject <- papers[,3]
-arxivsubject
-subject_cut <- strsplit(arxivsubject, "\\(")
-# Extract main subject
-main_subject <- sapply(subject_cut, `[`, 1)
-
-#containing all the review and removing all the possible special character that is not allowed and replacing it with a blank ""
-arxivabstract<- papers[,4]
-arxivabstract_cut <- gsub("\"","", arxivabstract)
-arxivabstract_cut<-gsub("'","",arxivabstract_cut)
-arxivabstract_cut<-gsub(",","",arxivabstract_cut)
-arxivabstract_cut<-gsub(":","",arxivabstract_cut)
-arxivabstract_cut<-gsub("-","",arxivabstract_cut)
-arxivabstract <- arxivabstract_cut
-arxivabstract
-
-arxivmeta <- papers[,5]
-arxivmeta
-
-arxivquery <- character(nrow(papers))
-# linking it all using paste0 in order to make the code shorter kag para di budlay mag pasulod sa database sorry cant explain it well.
-for (i in 1:150) {
-  arxivquery[i] <- paste0("INSERT INTO arxivpapers( title, author, subject, abstract, meta) VALUES ('",
-                          arxivtitle[i], "', '",
-                          arxivauthor[i], "','",
-                          main_subject[i], "', '",
-                          arxivabstract[i], "' , '",
-                          arxivmeta[i],"')")
-}
-
-#loop of these:
-# insert values into MySQL
-# Execute the query
-for (i in 1:150){
-  query<- arxivquery[i]
-  query_result <- dbSendQuery(connection, query)
-}
-
-#checking if the value was inserted into a table
 my_data <- dbGetQuery(connection, "SELECT * FROM arxiv_150insert.arxivpapers")
 glimpse(my_data)
 View(my_data)
