@@ -24,10 +24,11 @@ moviereviewtitle
 moviereview<-movies3k$reviewlist
 moviereview<-gsub("[^a-zA-Z0-9 ]","",moviereview)
 moviereview
+
 #-------------------------------------------------
 reviewdate<-movies3k$datelist
 library(lubridate)
-reviewdate <- as.POSIXlt(reviewdate, format = "%d %B %Y")
+reviewdate <- as.POSIXct(reviewdate, format = "%d %B %Y")
 reviewdate<-data.frame(reviewdate)
 reviewdate
 finaloutput<-data.frame(cbind(movietitle,moviereviewer,reviewdate,movierate,moviereviewtitle,moviereview))
