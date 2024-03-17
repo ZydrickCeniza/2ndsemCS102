@@ -25,13 +25,13 @@ moviereview<-movies3k$reviewlist
 moviereview<-gsub("[^a-zA-Z0-9 ]","",moviereview)
 moviereview
 #-------------------------------------------------
-moviedate<-movies3k$datelist
+reviewdate<-movies3k$datelist
 library(lubridate)
-moviedate <- as.POSIXlt(moviedate, format = "%d %B %Y")
-moviedate<-data.frame(moviedate)
-moviedate
-finaloutput<-data.frame(cbind(movietitle,moviedate,moviereviewer,movierate,moviereviewtitle,moviereview))
-
+reviewdate <- as.POSIXlt(reviewdate, format = "%d %B %Y")
+reviewdate<-data.frame(reviewdate)
+reviewdate
+finaloutput<-data.frame(cbind(movietitle,moviereviewer,reviewdate,movierate,moviereviewtitle,moviereview))
+View(finaloutput)
 #---------------------------------------
 library(dplyr, dbplyr)
 library(RMySQL) 
