@@ -28,9 +28,9 @@ moviereview
 moviedate<-movies3k$datelist
 library(lubridate)
 moviedate <- as.POSIXlt(moviedate, format = "%d %B %Y")
+moviedate<-data.frame(moviedate)
 moviedate
-
-finaloutput<-data.frame(cbind(movietitle,moviereviewer,movierate,moviereviewtitle,moviereview))
+finaloutput<-data.frame(cbind(movietitle,moviedate,moviereviewer,movierate,moviereviewtitle,moviereview))
 
 #---------------------------------------
 library(dplyr, dbplyr)
@@ -47,10 +47,8 @@ connection <- dbConnect(RMySQL::MySQL(),
 #SHowing the List of Tables in the Database you inputted
 dbListTables(connection)
 dbListFields(connection,"movies")
-#direct inserting in the database
+
 dbWriteTable(connection,name="movies",value=finaloutput,row.names=FALSE,append=TRUE)
-#inserting the database information to a vector
 finaldata<-dbGetQuery(connection,"SELECT * FROM movie3000.movies")
 View(finaldata)
-#transforming the database information to a csv
-write.csv(finaldata,file="Activity5finalouput_from_the_database")
+write.csv(finaldata,file="Activity5finalouput_from_the_database.csv")
